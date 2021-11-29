@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using ExamenParte2.Models;
 using ExamenParte2.Handlers;
+using System;
 
 namespace ExamenParte2.Controllers{
     public class CreatePizzaController : Controller{
@@ -33,13 +34,13 @@ namespace ExamenParte2.Controllers{
         [HttpPost]
         public ActionResult SubmitPizzaCreation(PersonalizedPizza pizza) {
             List<SelectedItem> selectedProducts = new List<SelectedItem>();
-            ActionResult view = RedirectToAction("Index", "Home");
-            //string date = Request.Form["date"];
-            //string title = Request.Form["title"];
+            ActionResult view = RedirectToAction("Index", "Home");            
             TempData["Error"] = true;
             TempData["WarningMessage"] = "";
 
             try {
+                AddPizzaSelection(selectedProducts, pizza);
+                RequestIngredients(selectedProducts);
                 TempData["Error"] = false;
                 ModelState.Clear();
                 view = RedirectToAction("ShowPrices", "CreatePizza", new {products = selectedProducts });
@@ -48,6 +49,31 @@ namespace ExamenParte2.Controllers{
             }
 
             return view;
+        }
+
+        private void AddPizzaSelection(List<SelectedItem> products, PersonalizedPizza pizza) {
+            if (products != null) {
+                products.Add(GetSelectedItem("Tamaño " + pizza.Size, pizza.Size, 1));
+                products.Add(GetSelectedItem("Masa " + pizza.Mass, pizza.Mass, 1));
+                products.Add(GetSelectedItem(pizza.Sauce, pizza.Sauce, 1));
+                products.Add(GetSelectedItem(pizza.Mozzarella, pizza.Mozzarella, 1));
+            }
+        }
+
+        private SelectedItem GetSelectedItem(string description, string findPrice, int quantity) {
+            return new SelectedItem(description, ProductsDataAccess.GetPriceForItem(findPrice), quantity);
+        }
+
+        private void RequestIngredients(List<SelectedItem> products) {
+            if (products != null) {
+                List<string> ingredients = ProductsDataAccess.GetItemsByType("ingrediente");
+                foreach (string ingredient in ingredients) {
+                    int quantity = Convert.ToInt32(Request.Form[ingredient]);
+                    if (quantity > 0) {
+                        products.Add(GetSelectedItem(ingredient, ingredient, quantity));
+                    }
+                }
+            }
         }
 
         public ActionResult ShowPrices(List<SelectedItem> products) {
