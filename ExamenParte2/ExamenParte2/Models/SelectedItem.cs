@@ -13,8 +13,11 @@ namespace ExamenParte2.Models {
 
         public int Total { get; set; }
 
-        public void CalculateTotal (){
-            this.Total = this.Quantity * this.Price;
+        public SelectedItem(string description, int price, int quantity) {
+            this.Description = description;
+            this.Price = price;
+            this.Quantity = quantity;
+            this.Total = quantity * price;
         }
     }
 }
