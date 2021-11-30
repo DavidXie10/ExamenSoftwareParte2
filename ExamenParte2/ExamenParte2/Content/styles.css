@@ -6,11 +6,11 @@
     width: 150px
 }
 
-.ingredient {
+.item{
     text-align: center;
 }
 
-.ingredient-text {
+.item-text {
     font-size: 1.5rem;
 }
 
