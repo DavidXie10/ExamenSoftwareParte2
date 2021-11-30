@@ -128,6 +128,7 @@
     <Compile Include="Handlers\DatabaseHandler.cs" />
     <Compile Include="Handlers\ProductsHandler.cs" />
     <Compile Include="Models\PersonalizedPizza.cs" />
+    <Compile Include="Models\PickOrderInformation.cs" />
     <Compile Include="Models\SelectedItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
