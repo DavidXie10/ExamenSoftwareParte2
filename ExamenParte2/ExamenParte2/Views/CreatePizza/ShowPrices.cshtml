@@ -1,0 +1,165 @@
+﻿@model ExamenParte2.Models.PickOrderInformation
+@{
+    ViewBag.Title = "Desglose de precios";
+    List<SelectListItem> PickUpOptions = ViewBag.PickUpOptions;
+}
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styles.css" />
+</head>
+<body>
+    <div class="container" style="height: 100%">
+        @using (Html.BeginForm("SubmitPickUpOrderChoice", "CreatePizza", FormMethod.Post, new { enctype = "multipart/form-data" })) {
+            @Html.AntiForgeryToken()
+
+            <h2 style="margin: 20px 0 30px 0;"><strong>@ViewBag.Header</strong></h2>
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="text-success text-center">SU ORDEN DE COMPRA</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <p style="font-size: 1.5rem"><strong>Desglose de precios</strong></p>
+                        <div class="col">
+                            <table class="table" id="pricesDetailsTable">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Descripción</th>
+                                        <th scope="col">Precio</th>
+                                        <th scope="col">Cantidad</th>
+                                        <th scope="col">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="pricesDetailsTableBody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 1rem;">
+                        <div class="col-9">
+                        </div>
+                        <div class="col-3" style="width: 10rem; height: 4rem; padding-top: 1rem; padding-left:1.4rem;">
+                            <span><strong>Subtotal:</strong> </span> <span id="subtotal"></span>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 1rem">
+                        <p style="font-size: 1.5rem"><strong>¿Cuántas pizzas desea ordenar? </strong></p>
+                        <p>Puede ordenar un máximo de 4 pizzas.</p>
+                        <div class="qty">
+                            <span class="minus bg-dark" onclick="decrement('pizzaCount'), updateTotalTable()">-</span>
+                            <input type="number" class="count" name="qty" value="1" id="pizzaCount">
+                            <span class="plus bg-dark" onclick="increment('pizzaCount'), updateTotalTable()">+</span>
+                        </div>
+                        <div class="col">
+                            <table class="table mt-4" style="width: 100%" id="totalPricesTable">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Descripción</th>
+                                        <th scope="col" style="text-align: right; padding-right: 8.5rem">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Subtotal</td>
+                                        <td style="text-align: right; padding-right: 8.5rem" id="subtotalWithExtras"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>IVA</td>
+                                        <td style="text-align: right; padding-right: 8.5rem" id="iva"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total</td>
+                                        <td style="text-align: right; padding-right: 8.5rem" id="total"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 1rem">
+                        <p style="font-size: 1.5rem"><strong>¿Cómo va a recoger su orden?</strong></p>
+                        <div class="col-6">
+                            @Html.DropDownListFor(model => model.PickOrderChoice, PickUpOptions, "- Escoja una opción - ", new { @class = "form-select" })
+                            @Html.ValidationMessageFor(model => model.PickOrderChoice, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+                <div class="text-center">
+                    @Html.ActionLink("Cancelar", "../Home/Index", new { }, new { @class = "btn btn-danger inputButton" })
+
+                    <input type="submit" class="btn btn-success inputButton" value="Continuar" />
+                </div>
+            </div>
+        }
+    </div>
+    <script type="text/javascript" src="~/Scripts/main.js"></script>
+    <script>
+        const pricesDetailsTableBodyId = "pricesDetailsTableBody";
+        let otherItems = [];
+
+        function appendTableCellsToRow(row, cells) {
+            for (let index = 0; index < cells.length; ++index) {
+                let cellElement = document.createElement("td");
+                let cellText = document.createTextNode(cells[index]);
+                cellElement.appendChild(cellText);
+                row.appendChild(cellElement);
+            }
+        }
+
+        function addSelectedItemsToTable() {
+            let selectedItems = @Html.Raw(Json.Encode(ViewBag.SelectedProducts));
+            let tableBody = document.getElementById(pricesDetailsTableBodyId);
+            for (let item in selectedItems) {
+                let row = document.createElement("tr");
+                let cells = [];
+                cells.push(selectedItems[item].Description, "₡" + selectedItems[item].Price, selectedItems[item].Quantity, "₡" + selectedItems[item].Total);
+                this.appendTableCellsToRow(row, cells);
+                tableBody.append(row);
+            }
+        }
+
+        function calculateSubtotalWithoutExtraItems() {
+            let subtotal = 0;
+            let selectedItems = @Html.Raw(Json.Encode(ViewBag.SelectedProducts));
+
+            for (let item in selectedItems) {
+                subtotal += selectedItems[item].Total;
+            }
+
+            return subtotal;
+        }
+
+        function calculateIva(subtotal) {
+            return subtotal * 0.13;
+        }
+
+        function main() {
+            addSelectedItemsToTable();
+            updateTotalTable();
+        }
+
+        function updateTotalTable() {
+            let subtotalWithoutExtras = calculateSubtotalWithoutExtraItems();
+            let extraItemsSubtotal = 0;
+            let orderCount = document.getElementById("pizzaCount").value;
+            let subtotal = subtotalWithoutExtras * orderCount + extraItemsSubtotal;
+            let iva = calculateIva(subtotal);
+            setContent("subtotal", "₡" + subtotalWithoutExtras);
+            setContent("subtotalWithExtras", "₡" + subtotal);
+            setContent("iva", "₡" + iva);
+            setContent("total", "₡" + (subtotal + iva));
+        }
+
+        function setContent(id, content) {
+            document.getElementById(id).innerHTML = content;
+        }
+
+        main();
+
+    </script>
+</body>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+</html>
