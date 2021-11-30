@@ -1,7 +1,8 @@
 ﻿function increment(inputId) {
     let input = document.getElementById(inputId);
-    input.value = parseInt(input.value) + 1;
-    console.log(input.value);
+    if (parseInt(input.value) + 1 < 5) {
+        input.value = parseInt(input.value) + 1;
+    }
 }
 
 function decrement(inputId) {
@@ -9,7 +10,6 @@ function decrement(inputId) {
     if (parseInt(input.value) - 1 >= 0) {
         input.value = input.value - 1;
     }
-    console.log(input.value);
 }
 
 function hide(elementId) {
