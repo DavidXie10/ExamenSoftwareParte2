@@ -3,6 +3,7 @@
     ViewBag.Title = "Desglose de precios";
     List<SelectListItem> PickUpOptions = ViewBag.PickUpOptions;
 }
+
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="~/Content/styles.css" />
@@ -19,6 +20,51 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
+                        <p style="font-size: 1.5rem"><strong>¿Le gustaría agregar algo más?</strong></p>
+                        <div class="col-4">
+                            <div class="card item">
+                                <img src="~/Images/pasta.png" style="width:10rem; margin-left:5rem" />
+                                <div class="card-body">
+                                    <p class="card-text item-text">Spaguetti Supremo</p>
+                                    <p class="card-text item-text">₡ 3950</p>
+                                    <div>
+                                        <span class="minus bg-dark" onclick="decrement('extra-0'), updateTotalTable()">-</span>
+                                        <input type="number" class="count" name="extra-0" value="0" id="extra-0" />
+                                        <span class="plus bg-dark" onclick="increment('extra-0'), updateTotalTable()">+</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="card item">
+                                <img src="~/Images/cookie.png" style="width:10rem; margin-left:5rem" />
+                                <div class="card-body">
+                                    <p class="card-text item-text">Big Cookie</p>
+                                    <p class="card-text item-text">₡ 2950</p>
+                                    <div>
+                                        <span class="minus bg-dark" onclick="decrement('extra-1'), updateTotalTable()">-</span>
+                                        <input type="number" class="count" name="extra-1" value="0" id="extra-1" />
+                                        <span class="plus bg-dark" onclick="increment('extra-1'), updateTotalTable()">+</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="card item">
+                                <img src="~/Images/salad.png" style="width:10rem; margin-left:5rem" />
+                                <div class="card-body">
+                                    <p class="card-text item-text">Ensalada Cobb</p>
+                                    <p class="card-text item-text">₡ 3950</p>
+                                    <div>
+                                        <span class="minus bg-dark" onclick="decrement('extra-2'), updateTotalTable()">-</span>
+                                        <input type="number" class="count" name="extra-2" value="0" id="extra-2" />
+                                        <span class="plus bg-dark" onclick="increment('extra-2'), updateTotalTable()">+</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 1rem;">
                         <p style="font-size: 1.5rem"><strong>Desglose de precios</strong></p>
                         <div class="col">
                             <table class="table" id="pricesDetailsTable">
@@ -45,9 +91,9 @@
                     <div class="row" style="margin-top: 1rem">
                         <p style="font-size: 1.5rem"><strong>¿Cuántas pizzas desea ordenar? </strong></p>
                         <p>Puede ordenar un máximo de 4 pizzas.</p>
-                        <div class="qty">
+                        <div>
                             <span class="minus bg-dark" onclick="decrement('pizzaCount'), updateTotalTable()">-</span>
-                            <input type="number" class="count" name="qty" value="1" id="pizzaCount">
+                            <input type="number" class="count" value="1" id="pizzaCount">
                             <span class="plus bg-dark" onclick="increment('pizzaCount'), updateTotalTable()">+</span>
                         </div>
                         <div class="col">
@@ -95,69 +141,9 @@
     </div>
     <script type="text/javascript" src="~/Scripts/main.js"></script>
     <script>
-        const pricesDetailsTableBodyId = "pricesDetailsTableBody";
-        let otherItems = [];
-
-        function appendTableCellsToRow(row, cells) {
-            for (let index = 0; index < cells.length; ++index) {
-                let cellElement = document.createElement("td");
-                let cellText = document.createTextNode(cells[index]);
-                cellElement.appendChild(cellText);
-                row.appendChild(cellElement);
-            }
-        }
-
-        function addSelectedItemsToTable() {
-            let selectedItems = @Html.Raw(Json.Encode(ViewBag.SelectedProducts));
-            let tableBody = document.getElementById(pricesDetailsTableBodyId);
-            for (let item in selectedItems) {
-                let row = document.createElement("tr");
-                let cells = [];
-                cells.push(selectedItems[item].Description, "₡" + selectedItems[item].Price, selectedItems[item].Quantity, "₡" + selectedItems[item].Total);
-                this.appendTableCellsToRow(row, cells);
-                tableBody.append(row);
-            }
-        }
-
-        function calculateSubtotalWithoutExtraItems() {
-            let subtotal = 0;
-            let selectedItems = @Html.Raw(Json.Encode(ViewBag.SelectedProducts));
-
-            for (let item in selectedItems) {
-                subtotal += selectedItems[item].Total;
-            }
-
-            return subtotal;
-        }
-
-        function calculateIva(subtotal) {
-            return subtotal * 0.13;
-        }
-
-        function main() {
-            addSelectedItemsToTable();
-            updateTotalTable();
-        }
-
-        function updateTotalTable() {
-            let subtotalWithoutExtras = calculateSubtotalWithoutExtraItems();
-            let extraItemsSubtotal = 0;
-            let orderCount = document.getElementById("pizzaCount").value;
-            let subtotal = subtotalWithoutExtras * orderCount + extraItemsSubtotal;
-            let iva = calculateIva(subtotal);
-            setContent("subtotal", "₡" + subtotalWithoutExtras);
-            setContent("subtotalWithExtras", "₡" + subtotal);
-            setContent("iva", "₡" + iva);
-            setContent("total", "₡" + (subtotal + iva));
-        }
-
-        function setContent(id, content) {
-            document.getElementById(id).innerHTML = content;
-        }
-
-        main();
-
+        let selectedItems = @Html.Raw(Json.Encode(ViewBag.SelectedProducts));
     </script>
+    <script type="text/javascript" src="~/Scripts/prices.js"></script>
 </body>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
