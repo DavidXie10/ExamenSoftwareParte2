@@ -14,7 +14,7 @@
     font-size: 1.5rem;
 }
 
-.qty .count {
+.count {
     color: #000;
     display: inline-block;
     vertical-align: top;
@@ -26,7 +26,7 @@
     text-align: center;
 }
 
-.qty .plus {
+.plus {
     cursor: pointer;
     display: inline-block;
     vertical-align: top;
@@ -38,7 +38,7 @@
     border-radius: 50%;
 }
 
-.qty .minus {
+.minus {
     cursor: pointer;
     display: inline-block;
     vertical-align: top;
