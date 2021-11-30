@@ -42,8 +42,9 @@ namespace ExamenParte2.Controllers{
                 AddPizzaSelection(selectedProducts, pizza);
                 RequestIngredients(selectedProducts);
                 TempData["Error"] = false;
+                TempData["products"] = selectedProducts;
                 ModelState.Clear();
-                view = RedirectToAction("ShowPrices", "CreatePizza", new {products = selectedProducts });
+                view = RedirectToAction("ShowPrices", "CreatePizza", new {header = "Su pizza personalizada" });
             } catch {
                 TempData["WarningMessage"] = "Algo salió mal";
             }
@@ -76,8 +77,17 @@ namespace ExamenParte2.Controllers{
             }
         }
 
-        public ActionResult ShowPrices(List<SelectedItem> products) {
-            ViewBag.SelectedProducts = products;
+        public ActionResult ShowPrices(string header) {
+            ViewBag.SelectedProducts = TempData["products"] as List<SelectedItem>;
+            ViewBag.Header = header;
+            ViewBag.PickUpOptions = GetDropdown(new List<string> { "Express", "Retiro en restaurante" });
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SubmitPickUpOrderChoice(PickOrderInformation pickUpChoice) {
+
             return View();
         }
     }
