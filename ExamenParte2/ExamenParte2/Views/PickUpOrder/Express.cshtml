@@ -1,0 +1,74 @@
+﻿@model ExamenParte2.Models.PickOrderInformation
+@{
+    ViewBag.Title = "Retiro express";
+    List<SelectListItem> ProvincesList = ViewBag.Provinces;
+}
+
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styles.css" />
+</head>
+<body>
+    <div class="container" style="height: 100%; margin-bottom: 9rem">
+        @using (Html.BeginForm("SubmitPickUpInformation", "PickUpOrder", FormMethod.Post, new { enctype = "multipart/form-data" })) {
+            @Html.AntiForgeryToken()
+
+            <h2 style="margin: 20px 0 30px 0;"><strong>Express</strong></h2>
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="text-success text-center">DIRECCIÓN DE ENVÍO</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row" style="margin-top: 15px; margin-left: 2px; margin-right: 2px;">
+                        @Html.LabelFor(model => model.ExactDirection, new { @style = "padding-left: 0" })
+                        @Html.TextAreaFor(model => model.ExactDirection, new { @class = "form-control", @rows = "5" })
+                        @Html.ValidationMessageFor(model => model.ExactDirection, "", new { @class = "text-danger", @style = "padding-left: 0" })
+                    </div>
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-4">
+                            @Html.LabelFor(model => model.Province)
+                            @Html.DropDownListFor(model => model.Province, ProvincesList, "- Escoja una opción - ", new { @class = "form-select" })
+                            @Html.ValidationMessageFor(model => model.Province, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-4">
+                            @Html.LabelFor(model => model.Canton)
+                            @Html.TextBoxFor(model => model.Canton, new { @class = "form-control", @placeholder = "San José" })
+                            @Html.ValidationMessageFor(model => model.Canton, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-4">
+                            @Html.LabelFor(model => model.District)
+                            @Html.TextBoxFor(model => model.District, new { @class = "form-control", @placeholder = "Pavas" })
+                            @Html.ValidationMessageFor(model => model.District, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col">
+                            @Html.LabelFor(model => model.ContactNumber)
+                            @Html.TextBoxFor(model => model.ContactNumber, new { @class = "form-control", @placeholder = "00000000" })
+                            @Html.ValidationMessageFor(model => model.ContactNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+                <div class="text-center">
+                    @Html.ActionLink("Atrás", "../CreatePizza/ShowPrices", new { }, new { @class = "btn btn-danger submitButton" })
+
+                    <input type="text" name="totalHidden" id="totalHidden" value="@ViewBag.PickUpModel.Total" style="display: none;" />
+                    <input type="text" name="productName" id="productName" value="@ViewBag.PickUpModel.ProductName" style="display: none;" />
+                    <input type="submit" class="btn btn-success submitButton" value="Continuar con la compra" />
+                </div>
+            </div>
+        }
+    </div>
+</body>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+</html>
+<style>
+    .submitButton {
+        margin: 20px;
+        line-height: 40px;
+        width: 14rem
+    }
+</style>
