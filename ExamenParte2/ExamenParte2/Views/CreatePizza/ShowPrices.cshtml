@@ -125,7 +125,7 @@
                     <div class="row" style="margin-top: 1rem">
                         <p style="font-size: 1.5rem"><strong>¿Cómo va a recoger su orden?</strong></p>
                         <div class="col-6">
-                            @Html.DropDownListFor(model => model.PickOrderChoice, PickUpOptions, "- Escoja una opción - ", new { @class = "form-select" })
+                            @Html.DropDownListFor(model => model.PickOrderChoice, PickUpOptions, "- Escoja una opción - ", new { @class = "form-select", @id = "pickChoice" })
                             @Html.ValidationMessageFor(model => model.PickOrderChoice, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -135,7 +135,8 @@
                     @Html.ActionLink("Cancelar", "../Home/Index", new { }, new { @class = "btn btn-danger inputButton" })
                     <input type="text" name="totalHidden" id="totalHidden" value="" style="display: none;" />
                     <input type="text" name="productName" id="productName" value="" style="display: none;" />
-                    <input type="submit" class="btn btn-success inputButton" value="Continuar" />
+                    <input type="text" name="pickOrder" id="pickOrder" value="" style="display: none;" />
+                    <input type="submit" class="btn btn-success inputButton" value="Continuar" onclick="setPickOrder()" />
                 </div>
             </div>
         }
@@ -143,6 +144,11 @@
     <script type="text/javascript" src="~/Scripts/main.js"></script>
     <script>
         let selectedItems = @Html.Raw(Json.Encode(ViewBag.SelectedProducts));
+
+        function setPickOrder() {
+            document.getElementById("pickOrder").value = document.getElementById("pickChoice").value;
+            console.log(document.getElementById("pickOrder").value);
+        }
     </script>
     <script type="text/javascript" src="~/Scripts/prices.js"></script>
 </body>
