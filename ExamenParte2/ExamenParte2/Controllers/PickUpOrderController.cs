@@ -12,20 +12,22 @@ namespace ExamenParte2.Controllers{
         [HttpPost]
         public ActionResult SubmitPickUpOrderChoice(PickOrderInformation pickUpChoice) {
             ActionResult view = RedirectToAction("Index", "Home");
-            //try {
+            try {
                 string choice = pickUpChoice.PickOrderChoice;
                 string controllerMethod = choice == "Express" ? "Express" : "InRestaurant";
                 string productName = Request.Form["productName"];
                 string totalHidden = Request.Form["totalHidden"];
+                string pickOrderChoice = Request.Form["pickOrder"];
 
                 pickUpChoice.ProductName = productName;
                 pickUpChoice.Total = totalHidden;
+                pickUpChoice.PickOrderChoice = pickOrderChoice;
 
                 TempData["pickUpInformation"] = pickUpChoice;
                 view = RedirectToAction(controllerMethod, "PickUpOrder");
-           // } catch (Exception exception) {
-             //   Debug.WriteLine(exception.ToString());
-            //}
+            } catch (Exception exception) {
+              Debug.WriteLine(exception.ToString());
+            }
 
             return view;
         }
@@ -61,9 +63,11 @@ namespace ExamenParte2.Controllers{
             try {
                 string productName = Request.Form["productName"];
                 string total = Request.Form["totalHidden"];
+                string pickOrderChoice = Request.Form["pickOrder"];
 
                 pickUpChoice.Total = total;
                 pickUpChoice.ProductName = productName;
+                pickUpChoice.PickOrderChoice = pickOrderChoice;
 
                 TempData["pickUpInformation"] = pickUpChoice;
 
@@ -76,6 +80,9 @@ namespace ExamenParte2.Controllers{
         }
 
         public ActionResult Invoice() {
+            ViewBag.PickUpModel = TempData["pickUpInformation"] as PickOrderInformation;
+            ViewBag.Date = DateTime.Now;
+
             return View();
         }
     }
