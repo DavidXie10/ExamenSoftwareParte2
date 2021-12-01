@@ -5,21 +5,11 @@ using ExamenParte2.Handlers;
 using System;
 
 namespace ExamenParte2.Controllers{
-    public class CreatePizzaController : Controller{
+    public class CreatePizzaController : GenericController {
         ProductsHandler ProductsDataAccess { get; set; }
 
         public CreatePizzaController() {
             ProductsDataAccess = new ProductsHandler();
-        }
-
-        private List<SelectListItem> GetDropdown(List<string> options) {
-            List<SelectListItem> dropdown = new List<SelectListItem>();
-
-            foreach (string option in options) {
-                dropdown.Add(new SelectListItem { Text = option, Value = option });
-            }
-
-            return dropdown;
         }
 
         public ActionResult CreatePizza(){
@@ -44,7 +34,7 @@ namespace ExamenParte2.Controllers{
                 TempData["Error"] = false;
                 TempData["products"] = selectedProducts;
                 ModelState.Clear();
-                view = RedirectToAction("ShowPrices", "CreatePizza", new {header = "Su pizza personalizada" });
+                view = RedirectToAction("ShowPrices", "Prices", new {header = "Su pizza personalizada" });
             } catch {
                 TempData["WarningMessage"] = "Algo salió mal";
             }
@@ -75,14 +65,6 @@ namespace ExamenParte2.Controllers{
                     }
                 }
             }
-        }
-
-        public ActionResult ShowPrices(string header) {
-            ViewBag.SelectedProducts = TempData["products"] as List<SelectedItem>;
-            ViewBag.Header = header;
-            ViewBag.PickUpOptions = GetDropdown(new List<string> { "Express", "Retiro en restaurante" });
-
-            return View();
         }
     }
 }

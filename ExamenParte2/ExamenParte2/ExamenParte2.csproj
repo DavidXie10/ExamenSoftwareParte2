@@ -121,8 +121,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CreatePizzaController.cs" />
+    <Compile Include="Controllers\GenericController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PickUpOrderController.cs" />
+    <Compile Include="Controllers\PricesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -212,14 +214,15 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\CreatePizza\CreatePizza.cshtml" />
-    <Content Include="Views\CreatePizza\ShowPrices.cshtml" />
     <Content Include="Views\PickUpOrder\InRestaurant.cshtml" />
     <Content Include="Views\PickUpOrder\Express.cshtml" />
-    <Content Include="Views\PickUpOrder\Invoice.cshtml" />
+    <Content Include="Views\Prices\ShowPrices.cshtml" />
+    <Content Include="Views\Prices\Invoice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Images\" />
+    <Folder Include="Views\Generic\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

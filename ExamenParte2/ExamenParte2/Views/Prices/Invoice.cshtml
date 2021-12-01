@@ -1,0 +1,37 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resumen de compra</title>
+</head>
+
+<body>
+    <div class="container" style="margin-bottom:10%; margin-top:5%">
+        <div class="row justify-content-center align-items-center">
+            <div class="card w-50" style="padding: 0px;">
+                <div class="card-header">
+                    <h2 style="margin: 20px 0 30px 0;"><strong>Resumen de su orden de compra</strong></h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h5> <b>Nombre producto:</b> @ViewBag.PickUpModel.ProductName</h5>
+                            <h5> <b>Forma de retiro:</b> @ViewBag.PickUpModel.PickOrderChoice</h5>
+                            <h5> <b>Fecha:</b> @ViewBag.Date</h5>
+                            <h5> <b>Descuento:</b>₡ 0.00</h5>
+                            <hr />
+                            <h5> <b>Total:</b> ₡ @ViewBag.PickUpModel.Total</h5>
+                            <hr />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col text-center">
+                            @Html.ActionLink("Volver al inicio", "../Home/Index", "Home", new { @class = "btn btn-success", @style = "width: 40%" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
