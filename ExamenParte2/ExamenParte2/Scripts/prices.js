@@ -79,11 +79,13 @@ function updateTotalTable() {
     let orderCount = parseInt(document.getElementById("pizzaCount").value);
     let subtotal = subtotalWithoutExtras * orderCount + extraItemsSubtotal;
     let iva = calculateIva(subtotal);
+    let total = subtotal + iva;
 
     setContent("subtotal", "₡" + parseInt(subtotalWithoutExtras + extraItemsSubtotal));
     setContent("subtotalWithExtras", "₡" + subtotal);
     setContent("iva", "₡" + iva);
-    setContent("total", "₡" + parseInt(subtotal + iva));
+    setContent("total", "₡" + parseInt(total));
+    document.getElementById("totalHidden").value = total;
 }
 
 function setContent(id, content) {
@@ -98,3 +100,4 @@ function deleteExtras() {
 }
 
 main();
+document.getElementById("productName").value = "pizza personalizada";

@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="container" style="height: 100%">
-        @using (Html.BeginForm("SubmitPickUpOrderChoice", "CreatePizza", FormMethod.Post, new { enctype = "multipart/form-data" })) {
+        @using (Html.BeginForm("SubmitPickUpOrderChoice", "PickUpOrder", FormMethod.Post, new { enctype = "multipart/form-data" })) {
             @Html.AntiForgeryToken()
 
             <h2 style="margin: 20px 0 30px 0;"><strong>@ViewBag.Header</strong></h2>
@@ -133,7 +133,8 @@
                 </div>
                 <div class="text-center">
                     @Html.ActionLink("Cancelar", "../Home/Index", new { }, new { @class = "btn btn-danger inputButton" })
-
+                    <input type="text" name="totalHidden" id="totalHidden" value="" style="display: none;" />
+                    <input type="text" name="productName" id="productName" value="" style="display: none;" />
                     <input type="submit" class="btn btn-success inputButton" value="Continuar" />
                 </div>
             </div>
