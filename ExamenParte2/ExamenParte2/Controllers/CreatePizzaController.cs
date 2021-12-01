@@ -84,11 +84,5 @@ namespace ExamenParte2.Controllers{
 
             return View();
         }
-
-        [HttpPost]
-        public ActionResult SubmitPickUpOrderChoice(PickOrderInformation pickUpChoice) {
-
-            return View();
-        }
     }
 }
