@@ -10,11 +10,14 @@
 </head>
 <body>
     <div class="container" style="height: 100%; margin-bottom: 9rem">
-        @using (Html.BeginForm("SubmitInRestaurantChoice", "PickUpOrder", FormMethod.Post, new { enctype = "multipart/form-data" })) {
+        @using (Html.BeginForm("SubmitPickUpInformation", "PickUpOrder", FormMethod.Post, new { enctype = "multipart/form-data" })) {
             @Html.AntiForgeryToken()
 
             <h2 style="margin: 20px 0 30px 0;"><strong>Retiro en restaurante</strong></h2>
             <div class="card">
+                <div class="card-header">
+                    <h4 class="text-success text-center">NUESTROS RESTAURANTES</h4>
+                </div>
                 <div class="card-body">
                     <div class="row" style="margin-top: 1rem">
                         <p style="font-size: 1.5rem"><strong>¿Cómo va a recoger su orden?</strong></p>
@@ -25,11 +28,11 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    @Html.ActionLink("Atrás", "../CreatePizza/ShowPrices", new { }, new { @class = "btn btn-danger inputButton" })
+                    @Html.ActionLink("Atrás", "../CreatePizza/ShowPrices", new { }, new { @class = "btn btn-danger submitButton" })
 
                     <input type="text" name="totalHidden" id="totalHidden" value="@ViewBag.PickUpModel.Total" style="display: none;" />
                     <input type="text" name="productName" id="productName" value="@ViewBag.PickUpModel.ProductName" style="display: none;" />
-                    <input type="submit" class="btn btn-success inputButton" value="Continuar" />
+                    <input type="submit" class="btn btn-success submitButton" value="Continuar con la compra" />
                 </div>
             </div>
         }
@@ -39,3 +42,11 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 </html>
+
+<style>
+    .submitButton {
+        margin: 20px;
+        line-height: 40px;
+        width: 14rem
+    }
+</style>
