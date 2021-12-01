@@ -2,8 +2,8 @@
 /* Parte del código fue adaptado de https://bootsnipp.com/snippets/2eKOz */
 .inputButton {
     margin: 20px;
-    line-height: 30px;
-    width: 150px
+    line-height: 40px;
+    width: 14rem
 }
 
 .item{
