@@ -215,6 +215,7 @@
     <Content Include="Views\CreatePizza\ShowPrices.cshtml" />
     <Content Include="Views\PickUpOrder\InRestaurant.cshtml" />
     <Content Include="Views\PickUpOrder\Express.cshtml" />
+    <Content Include="Views\PickUpOrder\Invoice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

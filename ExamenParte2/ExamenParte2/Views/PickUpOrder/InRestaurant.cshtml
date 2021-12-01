@@ -20,7 +20,7 @@
                 </div>
                 <div class="card-body">
                     <div class="row" style="margin-top: 1rem">
-                        <p style="font-size: 1.5rem"><strong>¿Cómo va a recoger su orden?</strong></p>
+                        <p style="font-size: 1.5rem"><strong>Seleccione el restaurante para recoger</strong></p>
                         <div class="col-6">
                             @Html.DropDownListFor(model => model.ExactDirection, Restaurants, "- Escoja una opción - ", new { @class = "form-select" })
                             @Html.ValidationMessageFor(model => model.ExactDirection, "", new { @class = "text-danger" })
@@ -28,11 +28,12 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    @Html.ActionLink("Atrás", "../CreatePizza/ShowPrices", new { }, new { @class = "btn btn-danger submitButton" })
+                    @Html.ActionLink("Atrás", "../CreatePizza/ShowPrices", new { }, new { @class = "btn btn-danger inputButton" })
 
                     <input type="text" name="totalHidden" id="totalHidden" value="@ViewBag.PickUpModel.Total" style="display: none;" />
                     <input type="text" name="productName" id="productName" value="@ViewBag.PickUpModel.ProductName" style="display: none;" />
-                    <input type="submit" class="btn btn-success submitButton" value="Continuar con la compra" />
+                    <input type="text" name="pickOrder" id="pickOrder" value="@ViewBag.PickUpModel.PickOrderChoice" style="display: none;" />
+                    <input type="submit" class="btn btn-success inputButton" value="Continuar con la compra" />
                 </div>
             </div>
         }
@@ -42,11 +43,3 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 </html>
-
-<style>
-    .submitButton {
-        margin: 20px;
-        line-height: 40px;
-        width: 14rem
-    }
-</style>

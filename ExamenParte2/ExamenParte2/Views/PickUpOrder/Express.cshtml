@@ -51,11 +51,12 @@
 
                 </div>
                 <div class="text-center">
-                    @Html.ActionLink("Atrás", "../CreatePizza/ShowPrices", new { }, new { @class = "btn btn-danger submitButton" })
+                    @Html.ActionLink("Atrás", "../CreatePizza/ShowPrices", new { }, new { @class = "btn btn-danger inputButton" })
 
                     <input type="text" name="totalHidden" id="totalHidden" value="@ViewBag.PickUpModel.Total" style="display: none;" />
                     <input type="text" name="productName" id="productName" value="@ViewBag.PickUpModel.ProductName" style="display: none;" />
-                    <input type="submit" class="btn btn-success submitButton" value="Continuar con la compra" />
+                    <input type="text" name="pickOrder" id="pickOrder" value="@ViewBag.PickUpModel.PickOrderChoice" style="display: none;" />
+                    <input type="submit" class="btn btn-success inputButton" value="Continuar con la compra" />
                 </div>
             </div>
         }
@@ -65,10 +66,3 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 </html>
-<style>
-    .submitButton {
-        margin: 20px;
-        line-height: 40px;
-        width: 14rem
-    }
-</style>
