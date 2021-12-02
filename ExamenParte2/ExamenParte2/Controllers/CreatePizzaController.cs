@@ -45,15 +45,13 @@ namespace ExamenParte2.Controllers{
         }
 
         private void RequestIngredients(List<SelectedItem> products) {
-            if (products != null) {
-                List<string> ingredients = ProductsDataAccess.GetItemsByType("ingrediente");
-                foreach (string ingredient in ingredients) {
-                    int quantity = Convert.ToInt32(Request.Form[ingredient]);
-                    if (quantity > 0) {
-                        products.Add(GetSelectedItem(ingredient, ingredient, quantity));
-                    }
+            List<string> ingredients = ProductsDataAccess.GetItemsByType("ingrediente");
+            foreach (string ingredient in ingredients) {
+                int quantity = Convert.ToInt32(Request.Form[ingredient]);
+                if (quantity > 0) {
+                    products.Add(GetSelectedItem(ingredient, ingredient, quantity));
                 }
-            }
+            }  
         }
     }
 }
