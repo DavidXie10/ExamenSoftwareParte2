@@ -53,7 +53,6 @@ function addExtrasToTable() {
     let tableBody = document.getElementById(pricesDetailsTableBodyId);
     for (let item in extrasPrices) {
         let quantity = parseInt(document.getElementById("extra-" + item).value);
-        console.log("extra-" + item, ": " + quantity);
         if (quantity > 0) {
             let row = document.createElement("tr");
             row.setAttribute("class", "extra");
@@ -99,5 +98,14 @@ function deleteExtras() {
     }
 }
 
+function getProductName() {
+    let productName = "pizza personalizada";
+    if (selectedItems.length == 1) {
+        productName = selectedItems[0].Description;
+    }
+
+    return productName;
+}
+
 main();
-document.getElementById("productName").value = "pizza personalizada";
+document.getElementById("productName").value = getProductName();
