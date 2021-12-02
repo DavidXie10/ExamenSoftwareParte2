@@ -16,6 +16,15 @@ namespace ExamenParte2.Controllers{
             return View();
         }
 
+        public ActionResult SetProducts(string selectedProduct) {
+            ActionResult view = RedirectToAction("ShowPrices", "Prices", new { header = "Productos seleccionados" });
+            List<SelectedItem> selectedProducts = new List<SelectedItem>();
+            selectedProducts.Add(GetSelectedItem(selectedProduct, selectedProduct, 1));
+            TempData["products"] = selectedProducts;
+
+            return view;
+        }
+
         public ActionResult Invoice() {
             ViewBag.PickUpModel = TempData["pickUpInformation"] as PickOrderInformation;
             ViewBag.Date = DateTime.Now;

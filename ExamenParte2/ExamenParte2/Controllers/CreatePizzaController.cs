@@ -6,12 +6,6 @@ using System;
 
 namespace ExamenParte2.Controllers{
     public class CreatePizzaController : GenericController {
-        ProductsHandler ProductsDataAccess { get; set; }
-
-        public CreatePizzaController() {
-            ProductsDataAccess = new ProductsHandler();
-        }
-
         public ActionResult CreatePizza(){
             ViewBag.Sizes = GetDropdown(ProductsDataAccess.GetItemsByType("tamanio"));
             ViewBag.Masses = GetDropdown(ProductsDataAccess.GetItemsByType("masa"));
@@ -49,10 +43,6 @@ namespace ExamenParte2.Controllers{
                 products.Add(GetSelectedItem(pizza.Sauce, pizza.Sauce, 1));
                 products.Add(GetSelectedItem(pizza.Mozzarella, pizza.Mozzarella, 1));
             }
-        }
-
-        private SelectedItem GetSelectedItem(string description, string findPrice, int quantity) {
-            return new SelectedItem(description, ProductsDataAccess.GetPriceForItem(findPrice), quantity);
         }
 
         private void RequestIngredients(List<SelectedItem> products) {
