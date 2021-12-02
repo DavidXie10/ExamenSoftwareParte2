@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using ExamenParte2.Models;
-using ExamenParte2.Handlers;
 using System;
 
 namespace ExamenParte2.Controllers{
