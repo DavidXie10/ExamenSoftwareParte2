@@ -99,7 +99,7 @@ function deleteExtras() {
 }
 
 function getProductName() {
-    let productName = "pizza personalizada";
+    let productName = "Pizza personalizada";
     if (selectedItems.length == 1) {
         productName = selectedItems[0].Description;
     }
