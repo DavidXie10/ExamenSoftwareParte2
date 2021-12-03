@@ -11,7 +11,7 @@ namespace ExamenParte2.Controllers{
             ProductsDataAccess = new ProductsHandler();
         }
 
-        protected List<SelectListItem> GetDropdown(List<string> options) {
+        public List<SelectListItem> GetDropdown(List<string> options) {
             List<SelectListItem> dropdown = new List<SelectListItem>();
 
             foreach (string option in options) {
@@ -21,7 +21,7 @@ namespace ExamenParte2.Controllers{
             return dropdown;
         }
 
-        protected SelectedItem GetSelectedItem(string description, string findPrice, int quantity) {
+        public SelectedItem GetSelectedItem(string description, string findPrice, int quantity) {
             return new SelectedItem(description, ProductsDataAccess.GetPriceForItem(findPrice), quantity);
         }
     }
