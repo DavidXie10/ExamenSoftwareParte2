@@ -34,7 +34,7 @@ namespace ExamenParte2.Controllers{
                 TempData["pickUpInformation"] = pickUpChoice;
                 view = RedirectToAction(controllerMethod, "PickUpOrder");
             } catch (Exception exception) {
-              Debug.WriteLine(exception.ToString());
+                Debug.WriteLine(exception.ToString());
             }
 
             return view;
@@ -44,14 +44,14 @@ namespace ExamenParte2.Controllers{
             ViewBag.PickUpModel = TempData["pickUpInformation"] as PickOrderInformation;
             ViewBag.Restaurants = GetDropdown(new List<string>(LOCATIONS));
 
-            return View();
+            return View("Restaurant");
         }
 
         public ActionResult Express() {
             ViewBag.PickUpModel = TempData["pickUpInformation"] as PickOrderInformation;
             ViewBag.Provinces = GetDropdown(new List<string>(PROVINCES));
 
-            return View();
+            return View("Express");
         }
 
         [HttpPost]
