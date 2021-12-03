@@ -22,22 +22,5 @@ namespace ExamenParte2.Handlers {
             connection.Close();
             return queryTable;
         }
-
-        public bool DatabaseQuery(string query) {
-            bool success = false;
-            SqlCommand queryCommand = new SqlCommand(query, connection);
-            connection.Open();
-            success = queryCommand.ExecuteNonQuery() >= 1;
-            connection.Close();
-            return success;
-        }
-
-        public bool DatabaseQuery(SqlCommand queryCommand) {
-            bool success = false;
-            connection.Open();
-            success = queryCommand.ExecuteNonQuery() >= 1;
-            connection.Close();
-            return success;
-        }
     }
 }

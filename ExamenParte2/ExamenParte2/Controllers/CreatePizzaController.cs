@@ -11,7 +11,7 @@ namespace ExamenParte2.Controllers{
             ViewBag.Sauces = GetDropdown(ProductsDataAccess.GetItemsByType("salsa"));
             ViewBag.Mozzarellas = GetDropdown(ProductsDataAccess.GetItemsByType("mozzarella"));
 
-            return View();
+            return View("CreatePizza");
         }
 
         [HttpPost]
@@ -35,7 +35,7 @@ namespace ExamenParte2.Controllers{
             return view;
         }
 
-        private void AddPizzaSelection(List<SelectedItem> products, PersonalizedPizza pizza) {
+        public void AddPizzaSelection(List<SelectedItem> products, PersonalizedPizza pizza) {
             if (products != null) {
                 products.Add(GetSelectedItem("Tamaño " + pizza.Size, pizza.Size, 1));
                 products.Add(GetSelectedItem("Masa " + pizza.Mass, pizza.Mass, 1));

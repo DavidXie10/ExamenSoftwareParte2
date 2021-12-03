@@ -1,10 +1,5 @@
-﻿using ExamenParte2;
-using ExamenParte2.Controllers;
+﻿using ExamenParte2.Controllers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Web.Mvc;
 
 namespace ExamenParte2.Tests.Controllers {
