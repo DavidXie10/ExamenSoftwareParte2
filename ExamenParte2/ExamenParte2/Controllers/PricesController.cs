@@ -11,7 +11,7 @@ namespace ExamenParte2.Controllers{
             ViewBag.Header = header;
             ViewBag.PickUpOptions = GetDropdown(new List<string> { "Express", "Retiro en restaurante" });
 
-            return View();
+            return View("Prices");
         }
 
         public ActionResult SetProducts(string selectedProduct) {
@@ -27,7 +27,7 @@ namespace ExamenParte2.Controllers{
             ViewBag.PickUpModel = TempData["pickUpInformation"] as PickOrderInformation;
             ViewBag.Date = DateTime.Now;
 
-            return View();
+            return View("Invoice");
         }
     }
 }
