@@ -44,7 +44,7 @@ namespace ExamenParte2.Controllers{
             ViewBag.PickUpModel = TempData["pickUpInformation"] as PickOrderInformation;
             ViewBag.Restaurants = GetDropdown(new List<string>(LOCATIONS));
 
-            return View("Restaurant");
+            return View("InRestaurant");
         }
 
         public ActionResult Express() {

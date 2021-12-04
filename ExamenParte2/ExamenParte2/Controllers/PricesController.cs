@@ -11,7 +11,7 @@ namespace ExamenParte2.Controllers{
             ViewBag.Header = header;
             ViewBag.PickUpOptions = GetDropdown(new List<string> { "Express", "Retiro en restaurante" });
 
-            return View("Prices");
+            return View("ShowPrices");
         }
 
         public ActionResult SetProducts(string selectedProduct) {
