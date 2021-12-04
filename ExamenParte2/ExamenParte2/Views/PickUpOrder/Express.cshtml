@@ -21,7 +21,7 @@
                 <div class="card-body">
                     <div class="row" style="margin-top: 15px; margin-left: 2px; margin-right: 2px;">
                         @Html.LabelFor(model => model.ExactDirection, new { @style = "padding-left: 0" })
-                        @Html.TextAreaFor(model => model.ExactDirection, new { @class = "form-control", @rows = "5" })
+                        @Html.TextAreaFor(model => model.ExactDirection, new { @class = "form-control", @rows = "5", @placeholder = "Pavas, Lómas, calle 13" })
                         @Html.ValidationMessageFor(model => model.ExactDirection, "", new { @class = "text-danger", @style = "padding-left: 0" })
                     </div>
                     <div class="row" style="margin-top: 15px;">
@@ -51,7 +51,7 @@
 
                 </div>
                 <div class="text-center">
-                    @Html.ActionLink("Atrás", "../CreatePizza/ShowPrices", new { }, new { @class = "btn btn-danger inputButton" })
+                    @Html.ActionLink("Atrás", "../Home/Index", new { }, new { @class = "btn btn-danger inputButton" })
 
                     <input type="text" name="totalHidden" id="totalHidden" value="@ViewBag.PickUpModel.Total" style="display: none;" />
                     <input type="text" name="productName" id="productName" value="@ViewBag.PickUpModel.ProductName" style="display: none;" />

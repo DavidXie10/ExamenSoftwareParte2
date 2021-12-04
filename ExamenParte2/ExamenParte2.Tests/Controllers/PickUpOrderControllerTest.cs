@@ -16,7 +16,7 @@ namespace ExamenParte2.Tests.Controllers {
         public void TestInRestaurantViewResult() {
             PickUpOrderController pickUpController = new PickUpOrderController();
             ViewResult view = pickUpController.InRestaurant() as ViewResult;
-            Assert.AreEqual("Restaurant", view.ViewName);
+            Assert.AreEqual("InRestaurant", view.ViewName);
         }
 
         [TestMethod]

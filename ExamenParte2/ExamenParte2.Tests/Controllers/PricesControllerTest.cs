@@ -16,7 +16,7 @@ namespace ExamenParte2.Tests.Controllers {
         public void TestShowPricesViewResult() {
             PricesController pricesController = new PricesController();
             ViewResult view = pricesController.ShowPrices("") as ViewResult;
-            Assert.AreEqual("Prices", view.ViewName);
+            Assert.AreEqual("ShowPrices", view.ViewName);
         }
 
         [TestMethod]
